@@ -26,9 +26,9 @@ public class Strategy {
         bet += getBetByPairs(ranks, bet) / 10;
 
         List<Integer> enemyBets = table.getPlayers().stream().map(Player::getBet).collect(Collectors.toList());
-        if (enemyBets.stream().anyMatch(enemyBet -> enemyBet > 50)) {
-            return 0;
-        }
+//        if (enemyBets.stream().anyMatch(enemyBet -> enemyBet > 50)) {
+//            return 0;
+//        }
 
         int pairMultiplier = getPairMultiplier(combined);
         bet = bet * pairMultiplier;
