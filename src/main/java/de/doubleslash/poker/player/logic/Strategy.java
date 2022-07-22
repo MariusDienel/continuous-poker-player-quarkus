@@ -22,7 +22,7 @@ public class Strategy {
 
         List<Rank> ranks = combined.stream().map(Card::getRank).collect(Collectors.toList());
 
-        int bet = table.getSmallBlind();
+        int bet = table.getSmallBlind()+ 5;
         bet += getBetByPairs(ranks, bet) / 10;
 
         List<Integer> enemyBets = table.getPlayers().stream().map(Player::getBet).collect(Collectors.toList());
