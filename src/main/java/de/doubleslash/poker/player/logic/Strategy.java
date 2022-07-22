@@ -1,13 +1,12 @@
 package de.doubleslash.poker.player.logic;
 
-import de.doubleslash.poker.player.data.Card;
-import de.doubleslash.poker.player.data.Player;
-import de.doubleslash.poker.player.data.Rank;
-import de.doubleslash.poker.player.data.Table;
+import de.doubleslash.poker.player.data.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Strategy {
@@ -26,7 +25,7 @@ public class Strategy {
         int bet = 0;
         bet = getBetByPairs(ranks, bet);
 
-        List<Integer> enemyBets = table.getPlayers().stream().map(player -> player.getBet()).collect(Collectors.toList());
+        List<Integer> enemyBets = table.getPlayers().stream().map(Player::getBet).collect(Collectors.toList());
         if (enemyBets.stream().anyMatch(enemyBet -> enemyBet > 25)) {
             return 0;
         }
@@ -34,12 +33,43 @@ public class Strategy {
         int stack = ownPlayer.getStack();
 
         if (street(combined)) {
-            return 20;
+            return 30;
+        }
+        if(flush(combined)) {
+            return 30;
         }
         double multiplier = stack / 100;
 
         long round = Math.round(bet * multiplier);
         return (int) round;
+    }
+
+    private boolean flush(List<Card> combined) {
+        int hearts = 0;
+        int spades = 0;
+        int clubs = 0;
+        int diamonds = 0;
+        if (combined.size() >= 5) {
+            for (Card card : combined) {
+                Suit suit = card.getSuit();
+                if(suit.equals(Suit.HEARTS)) {
+                    hearts+=1;
+                }
+                if(suit.equals(Suit.CLUBS)) {
+                    clubs+=1;
+                }
+                if(suit.equals(Suit.DIAMONDS)) {
+                    diamonds+=1;
+                }
+                if(suit.equals(Suit.SPADES)) {
+                    spades+=1;
+                }
+            }
+        }
+        if(hearts == 5 || spades == 5 ||clubs == 5 || diamonds == 5) {
+            return true;
+        }
+        return false;
     }
 
     private boolean street(List<Card> combined) {
