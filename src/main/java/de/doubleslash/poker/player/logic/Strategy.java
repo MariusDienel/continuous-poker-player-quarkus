@@ -60,7 +60,7 @@ public class Strategy {
             values.add((int) count);
         }
         boolean isDouble = values.contains(2);
-        boolean isDoubleDouble = values.stream().filter(e -> e == 2).count() == 2;
+        boolean isDoubleDouble = values.stream().filter(e -> e == 2).count() >= 2;
         boolean isTriple = values.contains(3);
         boolean isQuad = values.contains(4);
 
