@@ -23,8 +23,14 @@ public class Strategy {
         int bet = 0;
         bet = getBetByPairs(ranks, bet);
 
-        if (street(combined)) {
+        List<Integer> enemyBets = table.getPlayers().stream().map(player -> player.getBet()).collect(Collectors.toList());
+        if (enemyBets.stream().anyMatch(enemyBet -> enemyBet > 25)) {
+            return 0;
+        }
 
+
+        if (street(combined)) {
+            return 20;
         }
 
         return bet;
