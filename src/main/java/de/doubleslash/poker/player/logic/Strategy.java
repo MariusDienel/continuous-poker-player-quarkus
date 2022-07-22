@@ -22,33 +22,64 @@ public class Strategy {
 
         List<Rank> ranks = combined.stream().map(Card::getRank).collect(Collectors.toList());
 
-        int bet = 0;
-        bet = getBetByPairs(ranks, bet);
+        int bet = table.getSmallBlind();
+        bet += getBetByPairs(ranks, bet) / 10;
 
         List<Integer> enemyBets = table.getPlayers().stream().map(Player::getBet).collect(Collectors.toList());
         if (enemyBets.stream().anyMatch(enemyBet -> enemyBet > 50)) {
             return 0;
         }
 
+        int pairMultiplier = getPairMultiplier(combined);
+        bet = bet * pairMultiplier;
 
         int stack = ownPlayer.getStack();
 
         if (street(combined)) {
-            return 30;
+            return 1000;
         }
         if (flush(combined)) {
-            return 30;
+            return 1000;
         }
-        double multiplier = stack / 100;
-        double multiplier2 = table.getPot() / 10;
+//        double multiplier = stack / 100;
+//        double multiplier2 = table.getPot() / 10;
 
-        if (multiplier > 1) {
-            bet = (int) Math.round(bet * multiplier);
-        }
-        if (multiplier2 > 1) {
-            bet = (int) Math.round(bet * multiplier2);
-        }
+//        if (multiplier > 1) {
+//            bet = (int) Math.round(bet * multiplier);
+//        }
+//        if (multiplier2 > 1) {
+//            bet = (int) Math.round(bet * multiplier2);
+//        }
         return bet;
+    }
+
+    private int getPairMultiplier(List<Card> combined) {
+        List<Integer> values = new ArrayList<>();
+        for (Rank rank : Rank.values()) {
+            long count = combined.stream().filter(c -> c.getRank().equals(rank)).count();
+            values.add((int) count);
+        }
+        boolean isDouble = values.contains(2);
+        boolean isDoubleDouble = values.stream().filter(e -> e == 2).count() == 2;
+        boolean isTriple = values.contains(3);
+        boolean isQuad = values.contains(4);
+
+        if (isDouble && isTriple) {
+            return 6;
+        }
+        if (isQuad) {
+            return 100000000;
+        }
+        if (isDoubleDouble) {
+            return 3;
+        }
+        if (isTriple) {
+            return 3;
+        }
+        if (isDouble) {
+            return 2;
+        }
+
     }
 
     private boolean flush(List<Card> combined) {
