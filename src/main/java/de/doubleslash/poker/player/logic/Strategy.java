@@ -33,10 +33,10 @@ public class Strategy {
         int stack = ownPlayer.getStack();
 
         if (street(combined)) {
-            return 30;
+            return 50;
         }
         if(flush(combined)) {
-            return 30;
+            return 50;
         }
         double multiplier = stack / 100;
 

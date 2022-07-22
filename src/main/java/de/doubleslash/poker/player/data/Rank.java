@@ -5,9 +5,9 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum Rank {
-   ACE("A", 10, 13),
-   KING("K", 10, 12),
-   QUEEN("Q", 10, 11),
+   ACE("A", 20, 13),
+   KING("K", 15, 12),
+   QUEEN("Q", 12, 11),
    JACK("J", 8, 10),
    TEN("10", 7, 9),
    NINE("9", 4, 8),
