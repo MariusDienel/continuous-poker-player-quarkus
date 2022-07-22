@@ -39,9 +39,15 @@ public class Strategy {
             return 50;
         }
         double multiplier = stack / 100;
+        double multiplier2 = table.getPot() / 10;
 
-        long round = Math.round(bet * multiplier);
-        return (int) round;
+        if (multiplier > 1) {
+            bet = (int) Math.round(bet * multiplier);
+        }
+        if (multiplier2 > 1) {
+            bet = (int) Math.round(bet * multiplier2);
+        }
+        return bet;
     }
 
     private boolean flush(List<Card> combined) {
