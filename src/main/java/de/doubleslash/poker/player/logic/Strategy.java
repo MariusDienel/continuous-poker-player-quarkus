@@ -65,7 +65,7 @@ public class Strategy {
         boolean isQuad = values.contains(4);
 
         if (isDouble && isTriple) {
-            return 6;
+            return 20000;
         }
         if (isQuad) {
             return 100000000;
