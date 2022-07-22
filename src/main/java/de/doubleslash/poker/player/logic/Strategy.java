@@ -79,7 +79,7 @@ public class Strategy {
         if (isDouble) {
             return 2;
         }
-
+        return 1;
     }
 
     private boolean flush(List<Card> combined) {
