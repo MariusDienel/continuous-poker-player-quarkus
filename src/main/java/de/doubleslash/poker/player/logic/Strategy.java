@@ -26,17 +26,18 @@ public class Strategy {
         bet = getBetByPairs(ranks, bet);
 
         List<Integer> enemyBets = table.getPlayers().stream().map(Player::getBet).collect(Collectors.toList());
-        if (enemyBets.stream().anyMatch(enemyBet -> enemyBet > 25)) {
+        if (enemyBets.stream().anyMatch(enemyBet -> enemyBet > 50)) {
             return 0;
         }
+
 
         int stack = ownPlayer.getStack();
 
         if (street(combined)) {
-            return 50;
+            return 30;
         }
         if (flush(combined)) {
-            return 50;
+            return 30;
         }
         double multiplier = stack / 100;
         double multiplier2 = table.getPot() / 10;
