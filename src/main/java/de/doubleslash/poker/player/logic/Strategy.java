@@ -35,7 +35,7 @@ public class Strategy {
         if (street(combined)) {
             return 50;
         }
-        if(flush(combined)) {
+        if (flush(combined)) {
             return 50;
         }
         double multiplier = stack / 100;
@@ -52,21 +52,21 @@ public class Strategy {
         if (combined.size() >= 5) {
             for (Card card : combined) {
                 Suit suit = card.getSuit();
-                if(suit.equals(Suit.HEARTS)) {
-                    hearts+=1;
+                if (suit.equals(Suit.HEARTS)) {
+                    hearts += 1;
                 }
-                if(suit.equals(Suit.CLUBS)) {
-                    clubs+=1;
+                if (suit.equals(Suit.CLUBS)) {
+                    clubs += 1;
                 }
-                if(suit.equals(Suit.DIAMONDS)) {
-                    diamonds+=1;
+                if (suit.equals(Suit.DIAMONDS)) {
+                    diamonds += 1;
                 }
-                if(suit.equals(Suit.SPADES)) {
-                    spades+=1;
+                if (suit.equals(Suit.SPADES)) {
+                    spades += 1;
                 }
             }
         }
-        if(hearts == 5 || spades == 5 ||clubs == 5 || diamonds == 5) {
+        if (hearts == 5 || spades == 5 || clubs == 5 || diamonds == 5) {
             return true;
         }
         return false;
