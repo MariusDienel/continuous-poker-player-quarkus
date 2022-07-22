@@ -1,9 +1,11 @@
 package de.doubleslash.poker.player.logic;
 
 import de.doubleslash.poker.player.data.Card;
+import de.doubleslash.poker.player.data.Player;
 import de.doubleslash.poker.player.data.Rank;
 import de.doubleslash.poker.player.data.Table;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +14,8 @@ public class Strategy {
 
     public int decide(final Table table) {
         System.out.println(table);
-        List<Card> cards = table.getOwnPlayer().getCards();
+        Player ownPlayer = table.getOwnPlayer();
+        List<Card> cards = ownPlayer.getCards();
         List<Card> communityCards = table.getCommunityCards();
 
         List<Card> combined = new ArrayList<>(cards);
@@ -28,12 +31,15 @@ public class Strategy {
             return 0;
         }
 
+        int stack = ownPlayer.getStack();
 
         if (street(combined)) {
             return 20;
         }
+        double multiplier = stack / 100;
 
-        return bet;
+        long round = Math.round(bet * multiplier);
+        return (int) round;
     }
 
     private boolean street(List<Card> combined) {
