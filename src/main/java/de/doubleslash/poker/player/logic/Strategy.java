@@ -35,14 +35,19 @@ public class Strategy {
 
         int stack = ownPlayer.getStack();
 
+        int halfStack = stack / 2;
+        if (bet > halfStack) {
+            return halfStack;
+        }
+
         if (street(combined)) {
-            return 1000;
+            bet = 1000;
         }
         if (flush(combined)) {
-            return 1000;
+            bet = 1000;
         }
 //        double multiplier = stack / 100;
-//        double multiplier2 = table.getPot() / 10;
+        double multiplier2 = table.getPot() / 10;
 
 //        if (multiplier > 1) {
 //            bet = (int) Math.round(bet * multiplier);
