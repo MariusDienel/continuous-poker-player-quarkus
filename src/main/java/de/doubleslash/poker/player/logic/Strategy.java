@@ -21,11 +21,31 @@ public class Strategy {
       List<Rank> ranks = combined.stream().map(Card::getRank).collect(Collectors.toList());
 
       int bet = 0;
-      for (Rank rank : Rank.values()) {
-         int sum = ranks.stream().filter(r -> r.equals(rank)).mapToInt(r -> r.getValue()).sum();
-         bet += sum * rank.getValue();
+      bet = getBetByPairs(ranks, bet);
+
+      if(street(combined)) {
+
       }
 
+      return bet;
+   }
+
+   private boolean street(List<Card> combined) {
+      for (int i = 1; i <= 13; i++) {
+
+      }
+      return false;
+   }
+
+   private boolean containsCard(List<Card> combined, Rank searchedRank) {
+      return combined.stream().map(c -> c.getRank()).anyMatch(e -> e.equals(searchedRank));
+   }
+
+   private int getBetByPairs(List<Rank> ranks, int bet) {
+      for (Rank rank : Rank.values()) {
+         int sum = ranks.stream().filter(r -> r.equals(rank)).mapToInt(Rank::getValue).sum();
+         bet += sum * rank.getValue();
+      }
       return bet;
    }
 
